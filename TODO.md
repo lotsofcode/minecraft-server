@@ -7,3 +7,16 @@
 3. Auto install and configure crontab (for backups)
 4. Auto rc.d to initialise on startup
 5. Add screen command to jump to active screen via server script
+
+# Process: bin/install.sh
+
+1. Ask for the username to install for:
+	1. Check for the user
+		1. exists? Confirms to install to this user
+		2. Create user
+2. Check if /home/$username/mcserver/ 
+	1. exists? Confirms/Ask for overwrite 
+	2. Otherwise, Creates path
+3. Replace $USERNAME with provided username and replace MCPATH in setup file and install to /etc/init.d/minecraft
+4. Set permissions for all files
+5. Invoke the start server script /etc/init.d/minecraft start
