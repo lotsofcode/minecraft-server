@@ -110,29 +110,26 @@
     fi
   fi
 
-# Invoke the update
-
-#  $MCSERVER update
+# Invoke the update (as the new user)
+su - $USER_NAME -c "$MCSERVER update"
 
 # tmp output
-  echo -n 'USER_NAME:';
-    echo $USER_NAME;
-  echo -n 'WORLD_NAME:';
-    echo $WORLD_NAME;
-  echo -n 'SERVER_DIR_NAME:';
-    echo $SERVER_DIR_NAME;
-  echo -n 'BACKUP_PATH:';
-    echo $BACKUP_PATH;
-  echo -n 'SERVICE_NAME:';
-    echo $SERVICE_NAME;
-
-  echo -n 'MCSERVER:';
-    echo $MCSERVER;
-  echo -n 'MCSERVER_ALIAS:';
-    echo $MCSERVER_ALIAS;
- echo -n 'CREATE_INIT:';
-    echo $CREATE_INIT;
-  echo -n 'REPLACE_INIT:';
-    echo $REPLACE_INIT;
-
-exit 1;
+#  echo -n 'USER_NAME:';
+#    echo $USER_NAME;
+#  echo -n 'WORLD_NAME:';
+#    echo $WORLD_NAME;
+#  echo -n 'SERVER_DIR_NAME:';
+#    echo $SERVER_DIR_NAME;
+#  echo -n 'BACKUP_PATH:';
+#    echo $BACKUP_PATH;
+#  echo -n 'SERVICE_NAME:';
+#    echo $SERVICE_NAME;
+#  echo -n 'MCSERVER:';
+#    echo $MCSERVER;
+#  echo -n 'MCSERVER_ALIAS:';
+#    echo $MCSERVER_ALIAS;
+# echo -n 'CREATE_INIT:';
+#    echo $CREATE_INIT;
+#  echo -n 'REPLACE_INIT:';
+#    echo $REPLACE_INIT;
+# exit 1;

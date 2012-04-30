@@ -3,11 +3,15 @@ Minecraft Server
 
 # Installation
 
-./bin/install.sh
+	./bin/install.sh
+
+## Switch to the 
+
+	sudo -su minecraft 
 
 ## Update
 
-mcserver update
+	mcserver update
 
 ### Credit
 
