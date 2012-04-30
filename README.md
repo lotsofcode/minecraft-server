@@ -1,4 +1,14 @@
 Minecraft Server
 ================
 
-Source: http://www.minecraftwiki.net/wiki/Server_startup_script
+# Installation
+
+./bin/install.sh
+
+## Update
+
+mcserver update
+
+### Credit
+
+http://www.minecraftwiki.net/wiki/Server_startup_script
