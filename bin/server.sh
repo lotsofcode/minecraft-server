@@ -1,6 +1,7 @@
 #!/bin/bash
 # /etc/init.d/minecraft
 # version 0.3.7 2012-03-06 (YYYY-MM-DD)
+# Credit: http://www.minecraftwiki.net/wiki/Server_startup_script
 
 ### BEGIN INIT INFO
 # Provides:   minecraft
@@ -14,19 +15,13 @@
 # Description:    Starts the minecraft server
 ### END INIT INFO
 
-# TODO
-# mc install (asks to create default user)
-# id $USERNAME > /dev/null ... OR ...
-# grep $USERNAME /etc/passwd
-
-
 #Settings
-SERVICE='minecraft_server.jar'
+SERVICE='REPLACE_SERVICE_NAME'
 OPTIONS='nogui'
-USERNAME='minecraftuser'
-WORLD='world'
-MCPATH="/home/$USERNAME/mcserver"
-BACKUPPATH='/media/remote.share/minecraft.backup'
+USERNAME='REPLACE_USER_NAME'
+WORLD='REPLACE_WORLD_NAME'
+MCPATH="/home/REPLACE_USER_NAME/REPLACE_SERVER_DIR_NAME"
+BACKUPPATH='REPLACE_BACKUP_PATH'
 CPU_COUNT=1
 INVOCATION="java -Xmx1024M -Xms1024M -XX:+UseConcMarkSweepGC -XX:+CMSIncrementalPacing -XX:ParallelGCThreads=$CPU_COUNT -XX:+AggressiveOpts -jar $SERVICE $OPTIONS"
 
@@ -39,40 +34,10 @@ as_user() {
   fi
 }
 
-div() {
-  echo ' '; 
-}
-
-say() {
-  echo $1;
-  div
-}
-
-mc_install() {
-  div
-  user_exists=`grep $USERNAME /etc/passwd`
-  if [ "$user_exists" != "" ]; then
-    say "Username '$USERNAME' already exists, skipping creation of user.";
-  else
-    say "Create user: '$USERNAME'";
-    sudo useradd -m $USERNAME 
-    sudo passwd $USERNAME
-    say "Create path: '$USERNAME'";
-    sudo mkdir -p $MCPATH/bin
-    sudo chown -R $USERNAME $MCPATH
-  fi
-  cd $MCPATH
-  say "Installing as '$USERNAME' .."
-  mc_update
-  say "Installed: '$MCPATH' for '$USERNAME'";
-  usage
-  div
-}
-
 mc_start() {
   if  pgrep -u $USERNAME -f $SERVICE > /dev/null
   then
-    say "$SERVICE is already running!"
+    echo "$SERVICE is already running!"
   else
     echo "Starting $SERVICE..."
     cd $MCPATH
@@ -135,7 +100,7 @@ mc_stop() {
 mc_update() {
   if pgrep -u $USERNAME -f $SERVICE > /dev/null
   then
-    say "$SERVICE is running! Will not start update."
+    echo "$SERVICE is running! Will not start update."
   else
     MC_SERVER_URL=http://s3.amazonaws.com/MinecraftDownload/launcher/minecraft_server.jar?v=`date | sed "s/[^a-zA-Z0-9]/_/g"`
     as_user "cd $MCPATH && wget -q -O $MCPATH/minecraft_server.jar.update $MC_SERVER_URL"
@@ -143,13 +108,13 @@ mc_update() {
     then
       if `diff $MCPATH/$SERVICE $MCPATH/minecraft_server.jar.update >/dev/null`
       then 
-        say "You are already running the latest version of $SERVICE."
+        echo "You are already running the latest version of $SERVICE."
       else
         as_user "mv $MCPATH/minecraft_server.jar.update $MCPATH/$SERVICE"
-        say "Minecraft successfully updated."
+        echo "Minecraft successfully updated."
       fi
     else
-      say "Minecraft update could not be downloaded."
+      echo "Minecraft update could not be downloaded."
     fi
   fi
 }
@@ -187,15 +152,8 @@ mc_command() {
   fi
 }
 
-usage() {
-  echo "Usage: $0 {install|start|stop|update|backup|status|restart|command \"server command\"}"
-}
-
 #Start-Stop here
 case "$1" in
-  install)
-    mc_install
-    ;;
   start)
     mc_start
     ;;
@@ -233,9 +191,7 @@ case "$1" in
     ;;
 
   *)
-  usage
+  echo "Usage: $0 {start|stop|update|backup|status|restart|command \"server command\"}"
   exit 1
   ;;
 esac
-
-exit 0
