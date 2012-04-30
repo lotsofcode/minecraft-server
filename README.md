@@ -5,13 +5,35 @@ Minecraft Server
 
 	./bin/install.sh
 
-## Switch to the 
+## Switch to the user to perform operations
 
-	sudo -su minecraft 
+	su minecraft # or the username you chose on install
 
-## Update
+## Operations
 
+Start the server
+
+	mcserver start
+
+Stop the server from running
+
+	mcserver stop
+
+Restart the server
+
+	mcserver restart
+
+Update the minecraft server 
+	
 	mcserver update
+
+Perform a backup of the world
+
+	mcserver backup
+
+Check the status of the service
+
+	mcserver status
 
 ### Credit
 
