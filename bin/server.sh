@@ -20,6 +20,7 @@ SERVICE='REPLACE_SERVICE_NAME'
 OPTIONS='nogui'
 USERNAME='REPLACE_USER_NAME'
 WORLD='REPLACE_WORLD_NAME'
+DONWLOAD_URL='REPLACE_DONWLOAD_URL'
 MCPATH="/home/REPLACE_USER_NAME/REPLACE_SERVER_DIR_NAME"
 BACKUPPATH='REPLACE_BACKUP_PATH'
 CPU_COUNT=1
@@ -102,8 +103,7 @@ mc_update() {
   then
     echo "$SERVICE is running! Will not start update."
   else
-    MC_SERVER_URL=http://s3.amazonaws.com/MinecraftDownload/launcher/minecraft_server.jar?v=`date | sed "s/[^a-zA-Z0-9]/_/g"`
-    as_user "cd $MCPATH && wget -q -O $MCPATH/minecraft_server.jar.update $MC_SERVER_URL"
+    as_user "cd $MCPATH && wget -q -O $MCPATH/minecraft_server.jar.update $DONWLOAD_URL"
     if [ -f $MCPATH/minecraft_server.jar.update ]
     then
       if `diff $MCPATH/$SERVICE $MCPATH/minecraft_server.jar.update >/dev/null`
