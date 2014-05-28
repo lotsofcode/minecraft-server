@@ -24,6 +24,7 @@
   DEFAULT_SERVER_DIR_NAME='mcserver';
   DEFAULT_BACKUP_PATH='backups';
   DEFAULT_SERVICE_NAME='minecraft_server.jar';
+  DEFAULT_SERVER_DOWNLOAD_URL='http://s3.amazonaws.com/MinecraftDownload/launcher/minecraft_server.jar';
   SERVICE_NAME=$DEFAULT_SERVICE_NAME;
 
 # User settings
@@ -47,6 +48,13 @@
 
   if [ "$SERVER_DIR_NAME" = "" ]; then
     SERVER_DIR_NAME=$DEFAULT_SERVER_DIR_NAME;
+  fi
+
+  echo -n "Please enter the url of the server that you whant to donwload (default '$DEFAULT_SERVER_DOWNLOAD_URL'): ";
+  read SERVER_DOWNLOAD_URL
+
+  if [ "$SERVER_DOWNLOAD_URL" = "" ]; then
+    SERVER_DOWNLOAD_URL=$DEFAULT_SERVER_DOWNLOAD_URL;
   fi
 
   echo -n "Please choose your server command install path (default '$DEFAULT_MCSERVER'): ";
@@ -101,6 +109,7 @@
   if [ "$CREATE_INIT" = "y" ]; then
     sed -e "s/REPLACE_USER_NAME/$USER_NAME/g" \
         -e "s/REPLACE_WORLD_NAME/$WORLD_NAME/g" \
+        -e "s/REPLACE_DONWLOAD_URL/$SERVER_DOWNLOAD_URL/g" \
         -e "s/REPLACE_SERVER_DIR_NAME/$SERVER_DIR_NAME/g" \
         -e "s/REPLACE_BACKUP_PATH/$BACKUP_PATH/g" \
         -e "s/REPLACE_SERVICE_NAME/$SERVICE_NAME/g" bin/server.sh > /tmp/minecraft_server;
